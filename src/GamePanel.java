@@ -15,7 +15,7 @@ public class GamePanel extends JPanel implements ActionListener
     static final int SCREEN_HEIGHT = 600;
     static final int UNIT_SIZE = 25;
     static final int GAME_UNITS = (SCREEN_WIDTH*SCREEN_HEIGHT)/UNIT_SIZE;
-    static final int DELAY = 75;
+    static final int DELAY = 100;
     final int x[] = new int[GAME_UNITS];
     final int y[] = new int[GAME_UNITS];
     int bodyParts = 6;
@@ -27,8 +27,8 @@ public class GamePanel extends JPanel implements ActionListener
     Random random;
     Timer timer;
 
-    ImageIcon icon = new ImageIcon("reset-30.png");
-    JButton button = new JButton();
+    ImageIcon icon;
+    JButton button;
 
 
     GamePanel()
@@ -83,6 +83,16 @@ public class GamePanel extends JPanel implements ActionListener
         }
         else {
             gameOver(g);
+            icon = new ImageIcon("reset-30.png");
+            button = new JButton();
+            button.setVisible(true);
+            button.setBounds(270,400,50,50);
+            button.addActionListener(e -> new GameFrame());
+            button.setLayout(null);
+            button.setIcon(icon);
+            button.setBackground(Color.GREEN);
+            button.setFocusable(false);
+            this.add(button);
         }
 
     }
@@ -168,6 +178,7 @@ public class GamePanel extends JPanel implements ActionListener
         FontMetrics metrics1 = getFontMetrics(g.getFont());
         g.drawString("YOUR SCORE IS: " + applesEaten, (SCREEN_WIDTH  - metrics.stringWidth("SCORE: " + applesEaten))/2,g.getFont().getSize());
 
+
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -213,16 +224,6 @@ public class GamePanel extends JPanel implements ActionListener
                     break;
             }
         }
-    }
-
-    public void resetButton()
-    {
-
-        button.setBounds(300,400,30,30);
-        button.setIcon(icon);
-        button.setVisible(true);
-        button.setFocusable(true);
-        button.addActionListener(e -> startGame());
     }
 
 }
